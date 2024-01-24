@@ -1,0 +1,19 @@
+.timer-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.another-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-time {
+    font-size: 30px;
+    margin-top: 40%;
+}

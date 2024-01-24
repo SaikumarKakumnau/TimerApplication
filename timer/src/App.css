@@ -1,27 +1,48 @@
-.App {
+
+.main-container {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  background-color: aqua;
-  height: 100vh;
-  background-size: cover;
+  margin-top: 20px;
 }
 
-.timer-container {
-  background-color: #fff;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+
+.heading-container {
+  width: 50%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: lighter;
+  margin-bottom: 0px;
+}
+
+.para {
+  font-size: 15px;
+  font-weight: lighter;
+}
+
+.button-container {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 
 button {
   width: 100px;
-  border: none;
-  border-radius: 5px;
   padding: 10px;
-  margin-right: 10px;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 10px 10px 10px 0px #ddd;
+  background-color: #fff;
+  color: #6f3dba;
 }
+

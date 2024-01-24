@@ -1,83 +1,49 @@
 // import logo from './logo.svg';
-import { Component } from 'react'
+import { useEffect, useState} from 'react'
+import CountTimer from './components/CountTimer';
 import './App.css';
 
-class App extends Component {
-  state = { isTimeRunning: true, timeinSec: 30, timeinMin: 0 };
 
-  decrementSec = () => {
-    const {timeinMin, timeinSec } = this.state;
-    const isTimerCompleted = timeinSec === timeinMin * 60
-    if (isTimerCompleted) {
-      this.clearTimerInterval()
-    }
+const App = () => {
+  const [timeDuration, setDuration] = useState(30);
+  const [isTimeRuning, setTimeRunning] = useState(false)
+  const [timeKey, setKey] = useState(0)
 
-    this.setState(prevState => ({ timeinSec: prevState.timeinSec - 1 }))
-    // this.setState(prevState => ({isTimeRunning: !prevState.isTimeRunning}))
+  const handleTimerComplete = () => {
+    setDuration(0);
+    setKey((prevKey) => prevKey + 1)
   }
 
-  componentWillUnmount() {
-    this.clearTimerInterval()
+  const AddTimer = () => {
+    setDuration((prevState => prevState + 10))
+    setKey((prevKey) => prevKey + 1)
   }
 
-  componentDidMount() {
-    this.getTimeElapsed();
+  const SkipTimer = () => {
+    setDuration(0)
+    setKey((prevKey) => prevKey + 1)
   }
 
-  clearTimerInterval = () => clearInterval(this.intervalId);
+  useEffect(() => {
+    setTimeRunning(true)
+  },[]);
 
-  getTimeElapsed = () => {
-
-    this.intervalId = setInterval(this.decrementSec, 1000)
-  }
-  
-
-  timerElapsedsecInFormat = () => {
-    const { timeinSec, timeinMin } = this.state;
-    const remainTime = timeinSec - timeinMin * 60
-    const minutes = Math.floor(remainTime / 60)
-    console.log(minutes)
-    const sec = Math.floor(remainTime % 60)
-    console.log(sec)
-    const stringFiedMin = minutes > 9 ? minutes : `0${minutes}`;
-    const stringFiedSec = sec > 9 ? sec : `0${sec}`;
-
-    return `${stringFiedMin} : ${stringFiedSec}`;
-    
-
-  }
-
-  AddTimerInSec = () => {
-    const {timeinSec} = this.state;
-    this.setState(prevState => ({timeinSec: prevState.timeinSec + 10 }));
-    if(timeinSec === 0) {
-      this.getTimeElapsed();
-    }
-
-  }
-
-  skipTimer = () => {
-  
-    this.setState({ timeinMin: 0, timeinSec: 0 })
-    this.clearTimerInterval();
-  }
-
-  render() {
-    // const {timeinSec, timeinMin} = this.state;
-    return (
-      <div className='App'>
-        <h1>Routine Starting in...</h1>
-        <div className='timer-container'>
-          <h1>{this.timerElapsedsecInFormat()}</h1>
-        </div>
-
-        <div>
-          <button onClick={this.AddTimerInSec}>+ 10</button>
-          <button onClick={this.skipTimer}>Skip</button>
-        </div>
+  return(
+    <div className='main-container'>
+      <div className='heading-container'>
+        <h4 className='heading'>Routine starting in...</h4>
+        <p className='para'>subheading here</p>
       </div>
-    )
-  }
+      <CountTimer key={timeKey} duration={timeDuration} onTimerComplete={handleTimerComplete} />
+      
+      <div className='button-container'>
+        <button className='add' onClick={AddTimer}>+ 10 sec</button>
+        <button className='skip' onClick={SkipTimer}>Skip</button>
+      </div>
+    </div>
+  )
+
 }
 
-export default App;
+
+ export default App;
